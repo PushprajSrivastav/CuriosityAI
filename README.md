@@ -1,4 +1,4 @@
-# CuriosityAI (Perplexity Clone)
+# CuriosityAI
 
 A full-stack AI-powered search and chat application utilizing Gemini API, Node.js, Express, MongoDB, and React (Vite) with Tailwind CSS.
 

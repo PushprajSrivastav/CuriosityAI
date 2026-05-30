@@ -166,7 +166,7 @@ const Dashboard = () => {
         sources: [
           { title: 'Gemini Generative Engine', url: 'https://deepmind.google/technologies/gemini/' },
           { title: 'Web Search Engine', url: 'https://google.com' },
-          { title: 'CuriosityAI Index', url: 'https://perplexity.ai' }
+          { title: 'CuriosityAI Index', url: 'https://google.com' }
         ],
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       };
