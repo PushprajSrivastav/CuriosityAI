@@ -1,7 +1,14 @@
 import nodemailer from "nodemailer";
+import dns from "dns";
 
 const config = {
-    service: "gmail",
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false, // STARTTLS
+    // Force IPv4 lookup to bypass Render's lack of IPv6 support (fixes ENETUNREACH error)
+    lookup: (hostname, options, callback) => {
+        dns.lookup(hostname, { family: 4 }, callback);
+    },
     auth: process.env.GOOGLE_APP_PASSWORD 
         ? {
             user: process.env.GOOGLE_USER,
