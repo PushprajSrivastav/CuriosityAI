@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-[#020617] text-slate-200 antialiased;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+}
+
+.glass {
+  @apply bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] shadow-2xl;
+}
+
+.gradient-text {
+  @apply bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent;
+}
+
+.animate-blob {
+  animation: blob 7s infinite;
+}
+
+@keyframes blob {
+  0% { transform: translate(0px, 0px) scale(1); }
+  33% { transform: translate(30px, -50px) scale(1.1); }
+  66% { transform: translate(-20px, 20px) scale(0.9); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+
+.animation-delay-2000 { animation-delay: 2s; }
+.animation-delay-4000 { animation-delay: 4s; }
