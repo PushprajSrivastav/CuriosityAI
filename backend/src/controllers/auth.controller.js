@@ -179,7 +179,7 @@ const verifyEmail = async (req, res) => {
         <div style="font-family: sans-serif; text-align: center; padding: 50px;">
           <h1 style="color: #10b981;">Already Verified!</h1>
           <p>Your email is already verified. You can now login.</p>
-          <a href="http://localhost:5173/login" style="display: inline-block; padding: 10px 20px; background: #4f46e5; color: white; text-decoration: none; border-radius: 5px;">Go to Login</a>
+          <a href="${process.env.FRONTEND_URL || 'http://localhost:5173'}/login" style="display: inline-block; padding: 10px 20px; background: #4f46e5; color: white; text-decoration: none; border-radius: 5px;">Go to Login</a>
         </div>
       `);
     }
@@ -235,7 +235,7 @@ const verifyEmail = async (req, res) => {
       <div style="font-family: sans-serif; text-align: center; padding: 50px;">
         <h1 style="color: #10b981;">Email Verified Successfully!</h1>
         <p>Thank you for verifying your email. You can now access all features.</p>
-        <a href="http://localhost:5173/dashboard" style="display: inline-block; padding: 10px 20px; background: #4f46e5; color: white; text-decoration: none; border-radius: 5px;">Go to Dashboard</a>
+        <a href="${process.env.FRONTEND_URL || 'http://localhost:5173'}/dashboard" style="display: inline-block; padding: 10px 20px; background: #4f46e5; color: white; text-decoration: none; border-radius: 5px;">Go to Dashboard</a>
       </div>
     `);
   } catch (error) {

@@ -57,7 +57,7 @@ const sendVerificationEmail = async (email, username, verificationCode) => {
                                 ${verificationCode}
                             </span>
                             <br />
-                            <a href="http://localhost:3000/api/auth/verify?code=${verificationCode}&email=${email}" 
+                            <a href="${process.env.BACKEND_URL || 'http://localhost:3000'}/api/auth/verify?code=${verificationCode}&email=${email}" 
                                style="display: inline-block; padding: 14px 30px; background-color: #4f46e5; color: #ffffff; text-decoration: none; font-size: 16px; font-weight: 600; border-radius: 8px; box-shadow: 0 4px 6px rgba(79, 70, 229, 0.2);">
                                 Verify Email Now
                             </a>
