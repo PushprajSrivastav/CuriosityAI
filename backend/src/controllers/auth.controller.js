@@ -95,6 +95,7 @@ const loginUser = async (req, res) => {
     res.cookie("token", token, {
       httpOnly: true,   // JS se access nahi hoga (XSS protection)
       secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 din
     });
 
@@ -215,6 +216,7 @@ const verifyEmail = async (req, res) => {
     res.cookie("token", token, {
       httpOnly: true,   // JS se access nahi hoga (XSS protection)
       secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 din
     });
 
@@ -250,7 +252,11 @@ const verifyEmail = async (req, res) => {
 // ─── Logout ──────────────────────────────────────────────────
 const logoutUser = async (req, res) => {
   try {
-    res.clearCookie("token");
+    res.clearCookie("token", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    });
     return res.status(200).json({
       success: true,
       message: "Logout successful",
