@@ -1,44 +1,13 @@
-import nodemailer from "nodemailer";
-import dns from "dns";
+import { Resend } from "resend";
 
-const config = {
-    host: "smtp.gmail.com",
-    port: 465,
-    secure: true, // SSL
-    // Force IPv4 lookup to bypass Render's lack of IPv6 support (fixes ENETUNREACH error)
-    lookup: (hostname, options, callback) => {
-        dns.lookup(hostname, { family: 4 }, callback);
-    },
-    auth: process.env.GOOGLE_APP_PASSWORD 
-        ? {
-            user: process.env.GOOGLE_USER,
-            pass: process.env.GOOGLE_APP_PASSWORD,
-          }
-        : {
-            type: "OAuth2",
-            user: process.env.GOOGLE_USER,
-            clientId: process.env.GOOGLE_CLIENT_ID,
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-            refreshToken: process.env.GOOGLE_REFRESH_TOKEN,
-          }
-};
-
-const transporter = nodemailer.createTransport(config);
-transporter.verify((err, success) => {
-    if (err) {
-        console.error("Error connecting to Gmail:", err);
-    } else {
-        console.log("Successfully connected to Gmail");
-    }
-});
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 const sendVerificationEmail = async (email, username, verificationCode) => {
     try {
-        await transporter.sendMail({
-            from: `"CuriosityAI Team" <${process.env.GOOGLE_USER}>`,
+        const { data, error } = await resend.emails.send({
+            from: "CuriosityAI <onboarding@resend.dev>",
             to: email,
             subject: "Verify Your Email - CuriosityAI",
-            text: `Hi ${username}, your verification code is ${verificationCode}`,
             html: `
                 <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 12px; background-color: #ffffff;">
                     <div style="text-align: center; padding-bottom: 20px;">
@@ -76,19 +45,24 @@ const sendVerificationEmail = async (email, username, verificationCode) => {
                 </div>
             `,
         });
-        console.log("Verification email sent successfully");
+
+        if (error) {
+            console.error("Error sending verification email:", error);
+            return;
+        }
+
+        console.log("Verification email sent successfully:", data);
     } catch (error) {
-        console.error("Error sending verification email:", error);
+        console.error("Catch error sending verification email:", error);
     }
 };
 
 const sendResetPasswordEmail = async (email, username, resetCode) => {
     try {
-        await transporter.sendMail({
-            from: `"CuriosityAI Team" <${process.env.GOOGLE_USER}>`,
+        const { data, error } = await resend.emails.send({
+            from: "CuriosityAI <onboarding@resend.dev>",
             to: email,
             subject: "Reset Your Password - CuriosityAI",
-            text: `Hi ${username}, your password reset code is ${resetCode}`,
             html: `
                 <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 12px; background-color: #ffffff;">
                     <div style="text-align: center; padding-bottom: 20px;">
@@ -120,9 +94,15 @@ const sendResetPasswordEmail = async (email, username, resetCode) => {
                 </div>
             `,
         });
-        console.log("Password reset email sent successfully");
+
+        if (error) {
+            console.error("Error sending password reset email:", error);
+            return;
+        }
+
+        console.log("Password reset email sent successfully:", data);
     } catch (error) {
-        console.error("Error sending password reset email:", error);
+        console.error("Catch error sending password reset email:", error);
     }
 };
 
