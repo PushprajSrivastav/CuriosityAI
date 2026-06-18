@@ -3,7 +3,7 @@ import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
 
 const model = new ChatGoogleGenerativeAI({
     apiKey: process.env.GEMINI_API_KEY,
-    model: "gemini-2.0-flash", // Using gemini-2.0-flash as 1.5 is deprecated/unsupported for this API key
+    model: "gemini-2.5-flash-lite", // Using gemini-2.5-flash-lite as it has a working free tier quota for this API key
 });
 
 export async function testAI() {
