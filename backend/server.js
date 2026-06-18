@@ -11,4 +11,4 @@ connectDB().then(() => {
     }); 
 });
 
-testAI();
+// testAI(); // Disabled on startup to save Gemini API free-tier quota
