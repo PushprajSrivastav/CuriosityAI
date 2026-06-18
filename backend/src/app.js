@@ -59,7 +59,7 @@ app.post("/api/chat", authMiddleware, async (req, res) => {
     return res.status(200).json({ success: true, response: aiResponse });
   } catch (error) {
     console.error("Chat API error:", error);
-    return res.status(500).json({ success: false, message: "Failed to get AI response" });
+    return res.status(500).json({ success: false, message: "Failed to get AI response: " + error.message });
   }
 });
 
