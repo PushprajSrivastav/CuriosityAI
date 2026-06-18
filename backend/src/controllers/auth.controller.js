@@ -113,7 +113,8 @@ const loginUser = async (req, res) => {
     console.error("Login Error:", error);
     return res.status(500).json({
       success: false,
-      message: "Internal server error",
+      message: "Internal server error: " + error.message,
+      stack: error.stack
     });
   }
 };
